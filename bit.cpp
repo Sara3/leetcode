@@ -4,6 +4,8 @@
 #include <vector>
 #include <math.h> 
 #include <cstdlib>
+#include <stdlib.h>     /* strtol */
+#include <sstream>
 
 using namespace std; 
 /*
@@ -50,7 +52,7 @@ int main()
  			}
  	}
 
-*/
+
  	 string str = "2001:0db8:0000:0000:0000:ff00:0042:8329";
  	 int num;
  	 int count =1;
@@ -65,7 +67,7 @@ int main()
  	 	}
  	 	else if(str[i]==':')
  	 	{
- 	 		num = strtoul(temp, 0, 16); //this does not work but dont want to use this either
+ 	 		num = strtol(temp, 0, 16); //this does not work but dont want to use this either
  	 		cout<<num;
 
  	 		//cout<<endl;
@@ -83,6 +85,27 @@ int main()
  	}
  	*/
 	
-    return 0;
+	string input = "2001:0db8:0000:0000:0000:ff00:0042:8329";
+	string parsed;
+	stringstream input_stringstream(input);
+	int i=0; 
+	int num;
+	int pos;
 
-}
+	while(i<8){
+		if(getline(input_stringstream,parsed,':'))
+		{
+	     	num =stoi(parsed, &pos, 16);
+	     	cout<<num<<endl;
+	     	if(parsed.length() != pos)
+	     	{
+	     		return false;
+	     	}
+		}
+		i++;
+	}
+
+
+	    return 0;
+
+	}
